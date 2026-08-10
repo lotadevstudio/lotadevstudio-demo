@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import type { Business } from "@/types/business";
 import { createAssetResolver } from "@/lib/core/asset-resolver";
@@ -9,7 +9,7 @@ interface HeroProps {
   business: Business;
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
@@ -19,14 +19,14 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as const,
     },
   },
 };
@@ -149,7 +149,7 @@ export default function Hero({ business }: HeroProps) {
             )}
           </motion.div>
 
-          {/* RIGHT: SHOWCASE (Standard HTML block - zero animation locks) */}
+          {/* RIGHT: SHOWCASE */}
           <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl lg:col-span-7 lg:h-[72vh]">
             <img
               src={imageUrl}
