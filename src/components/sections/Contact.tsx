@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Mail,
   Phone,
@@ -10,6 +11,7 @@ import {
   MessageCircle,
   ArrowUpRight,
   CheckCircle2,
+  ShoppingBag,
 } from "lucide-react";
 import type { Business } from "@/types/business";
 
@@ -18,7 +20,9 @@ interface ContactProps {
 }
 
 export default function Contact({ business }: ContactProps) {
-  const { theme, contact, whatsappMessages, name } = business;
+  const { theme, contact, whatsappMessages, name, products, slug } = business;
+
+  const hasProducts = Array.isArray(products) && products.length > 0;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -40,7 +44,6 @@ export default function Contact({ business }: ContactProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission logic
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -54,7 +57,6 @@ export default function Contact({ business }: ContactProps) {
     }, 4000);
   };
 
-  // WhatsApp quick trigger URL
   const cleanPhone = contact?.whatsapp?.replace(/\D/g, "") || "";
   const defaultMessage =
     whatsappMessages?.general ||
@@ -113,14 +115,56 @@ export default function Contact({ business }: ContactProps) {
         {/* TWO-COLUMN GRID */}
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
-          {/* LEFT: DIRECT CONTACT DETAILS & WHATSAPP CARD */}
+          {/* LEFT: DIRECT CONTACT DETAILS & ACTION CARDS */}
           <div className="lg:col-span-5 space-y-8">
             <p
               className="text-sm sm:text-base leading-relaxed font-normal"
               style={{ color: theme.muted }}
             >
-              Whether you are looking to place an urgent order, discuss a corporate partnership, or arrange a private consultation, our team is at your disposal.
+              Whether you are looking to place a custom order, inquire about products in our store, or arrange a private consultation, our team is at your disposal.
             </p>
+
+            {/* DIRECT STORE ACTION CARD (IF PRODUCTS EXIST) */}
+            {hasProducts && (
+              <Link
+                href={`/${slug}/store`}
+                className="group flex items-center justify-between p-6 rounded-3xl border transition-all duration-300 hover:shadow-xl active:scale-[0.98]"
+                style={{
+                  borderColor: `${theme.primary}40`,
+                  backgroundColor: theme.surface,
+                }}
+              >
+                <div className="flex items-center gap-4">
+                  <div
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white"
+                    style={{ backgroundColor: theme.primary }}
+                  >
+                    <ShoppingBag size={22} />
+                  </div>
+                  <div>
+                    <p
+                      className="text-xs font-mono uppercase tracking-widest font-semibold"
+                      style={{ color: theme.accent || theme.primary }}
+                    >
+                      Instant Catalog
+                    </p>
+                    <h4
+                      className="text-base font-medium mt-0.5"
+                      style={{ color: theme.text }}
+                    >
+                      Browse Store Products
+                    </h4>
+                  </div>
+                </div>
+
+                <div
+                  className="flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 group-hover:bg-black group-hover:text-white"
+                  style={{ borderColor: theme.border }}
+                >
+                  <ArrowUpRight size={16} />
+                </div>
+              </Link>
+            )}
 
             {/* DIRECT WHATSAPP ACTION BOX */}
             <a
@@ -429,9 +473,11 @@ export default function Contact({ business }: ContactProps) {
                       }}
                     >
                       <option value="">Select a subject</option>
+                      {hasProducts && (
+                        <option value="store_catalog">Store Catalog Inquiry</option>
+                      )}
                       <option value="bespoke">Bespoke Curation</option>
                       <option value="corporate">Corporate Programme</option>
-                      <option value="fragrance">Signature Fragrance</option>
                       <option value="other">General Inquiry</option>
                     </select>
                   </div>
@@ -452,7 +498,7 @@ export default function Contact({ business }: ContactProps) {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us about the occasion, timeline, quantity or budget..."
+                    placeholder="Tell us about the product, occasion, timeline, quantity or budget..."
                     className="w-full rounded-xl border px-4 py-3 text-xs outline-none transition-all duration-200 focus:ring-1 resize-none"
                     style={{
                       backgroundColor: theme.background,

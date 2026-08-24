@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { ArrowUpRight, MessageCircle, ShoppingBag } from "lucide-react";
 import type { Business } from "@/types/business";
 import { createAssetResolver } from "@/lib/core/asset-resolver";
 
@@ -32,10 +33,10 @@ const itemVariants: Variants = {
 };
 
 export default function Hero({ business }: HeroProps) {
-  const { theme, hero, contact, whatsappMessages, statistics } = business;
-  const assets = createAssetResolver(business.slug);
+  const { theme, hero, contact, whatsappMessages, statistics, products, slug } = business;
+  const assets = createAssetResolver(slug);
 
-  // Fallback check to guarantee an image path string always exists
+  const hasProducts = Array.isArray(products) && products.length > 0;
   const imageUrl = assets.hero() || "/images/placeholder-hero.jpg";
 
   const whatsappUrl = `https://wa.me/${contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(
@@ -47,7 +48,7 @@ export default function Hero({ business }: HeroProps) {
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center">
         <div className="grid h-full items-center gap-8 lg:grid-cols-12 lg:gap-12">
 
-          {/* LEFT: EDITORIAL COPY */}
+          {/* LEFT: EDITORIAL COPY & CALLS TO ACTION */}
           <motion.div
             variants={containerVariants}
             initial={false}
@@ -90,22 +91,50 @@ export default function Hero({ business }: HeroProps) {
               {hero.subheadline}
             </motion.p>
 
+            {/* DYNAMIC CTA BUTTONS */}
             <motion.div
               variants={itemVariants}
               className="mt-6 flex flex-wrap items-center gap-3"
             >
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-full px-6 text-xs font-medium text-white transition-all duration-300 hover:opacity-90 active:scale-[0.98] shadow-sm"
-                style={{ backgroundColor: theme.primary }}
-              >
-                <MessageCircle size={14} />
-                <span>{hero.primaryCta || "Inquire via WhatsApp"}</span>
-              </a>
+              {/* PRIMARY STORE LINK (IF PRODUCTS EXIST) */}
+              {hasProducts ? (
+                <Link
+                  href={`/${slug}/store`}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full px-6 text-xs font-medium text-white transition-all duration-300 hover:opacity-90 active:scale-[0.98] shadow-sm"
+                  style={{ backgroundColor: theme.primary }}
+                >
+                  <ShoppingBag size={14} />
+                  <span>Shop Catalog</span>
+                </Link>
+              ) : (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full px-6 text-xs font-medium text-white transition-all duration-300 hover:opacity-90 active:scale-[0.98] shadow-sm"
+                  style={{ backgroundColor: theme.primary }}
+                >
+                  <MessageCircle size={14} />
+                  <span>{hero.primaryCta || "Inquire via WhatsApp"}</span>
+                </a>
+              )}
 
-              {hero.secondaryCta && (
+              {/* SECONDARY CONSULTATION OR NAVIGATION CTA */}
+              {hasProducts ? (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full border px-5 text-xs font-medium transition-all duration-300 hover:bg-black/5 active:scale-[0.98]"
+                  style={{
+                    borderColor: theme.border,
+                    color: theme.text,
+                  }}
+                >
+                  <MessageCircle size={14} />
+                  <span>Consult</span>
+                </a>
+              ) : hero.secondaryCta ? (
                 <a
                   href="#projects"
                   className="inline-flex h-11 items-center justify-center gap-1.5 rounded-full border px-5 text-xs font-medium transition-all duration-300 hover:bg-black/5 active:scale-[0.98]"
@@ -117,7 +146,7 @@ export default function Hero({ business }: HeroProps) {
                   <span>{hero.secondaryCta}</span>
                   <ArrowUpRight size={14} />
                 </a>
-              )}
+              ) : null}
             </motion.div>
 
             {statistics && statistics.length > 0 && (
@@ -149,7 +178,7 @@ export default function Hero({ business }: HeroProps) {
             )}
           </motion.div>
 
-          {/* RIGHT: SHOWCASE */}
+          {/* RIGHT: SHOWCASE IMAGE WITH LINK TO STORE OVERLAY */}
           <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl lg:col-span-7 lg:h-[72vh]">
             <img
               src={imageUrl}
@@ -160,16 +189,32 @@ export default function Hero({ business }: HeroProps) {
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
 
-            <div
-              className="absolute bottom-4 left-4 rounded-full border px-3.5 py-1.5 text-[10px] font-medium tracking-wider uppercase backdrop-blur-md shadow-sm"
-              style={{
-                backgroundColor: `${theme.background}B3`,
-                borderColor: `${theme.border}A0`,
-                color: theme.text,
-              }}
-            >
-              Featured Space • {business.name}
-            </div>
+            {hasProducts ? (
+              <Link
+                href={`/${slug}/store`}
+                className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border px-4 py-2 text-[10px] font-medium tracking-wider uppercase backdrop-blur-md shadow-sm transition-transform active:scale-95"
+                style={{
+                  backgroundColor: `${theme.background}B3`,
+                  borderColor: `${theme.border}A0`,
+                  color: theme.text,
+                }}
+              >
+                <ShoppingBag size={12} style={{ color: theme.primary }} />
+                <span>Browse Store Catalog</span>
+                <ArrowUpRight size={12} />
+              </Link>
+            ) : (
+              <div
+                className="absolute bottom-4 left-4 rounded-full border px-3.5 py-1.5 text-[10px] font-medium tracking-wider uppercase backdrop-blur-md shadow-sm"
+                style={{
+                  backgroundColor: `${theme.background}B3`,
+                  borderColor: `${theme.border}A0`,
+                  color: theme.text,
+                }}
+              >
+                Featured Space • {business.name}
+              </div>
+            )}
           </div>
 
         </div>

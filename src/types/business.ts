@@ -152,7 +152,7 @@ export interface Business {
     pillars: string[];
   };
   services: ServiceItem[];
-  showcase: ShowcaseItem[]; // Single source of truth for work & gallery
+  showcase: ShowcaseItem[]; 
   showcaseCategories: string[];
   testimonials: TestimonialItem[];
   statistics: StatItem[];
@@ -161,7 +161,7 @@ export interface Business {
   contact: ContactInfo;
   whatsappMessages: WhatsAppTemplates;
   sections: SectionToggles;
-  products?: ProductItem[]; // Store feature products list
+  products?: ProductItem[];
 }
 
 export type BusinessRegistry = Record<string, Business>;

@@ -1,4 +1,38 @@
-import type { Business } from "@/types/business";
+import type { Business, ProductItem } from "@/types/business";
+
+export const kanDecorProducts: ProductItem[] = [
+  {
+    id: "travertine-coffee-table",
+    name: "Sculptural Travertine Coffee Table",
+    category: "Living",
+    price: 450000,
+    formattedPrice: "₦450,000",
+    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
+    inStock: true,
+    description: "Honed beige travertine block table with softened edges.",
+  },
+  {
+    id: "oak-slat-headboard",
+    name: "Custom Oak Slat Headboard",
+    category: "Bedroom",
+    price: 320000,
+    formattedPrice: "₦320,000",
+    src: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=1200&auto=format&fit=crop",
+    inStock: true,
+    description: "Modular acoustic oak wood slat panels for principal suites.",
+  },
+  {
+    id: "linen-armchair",
+    name: "Low-Profile Linen Armchair",
+    category: "Seating",
+    price: 280000,
+    formattedPrice: "₦280,000",
+    src: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=1200&auto=format&fit=crop",
+    inStock: true,
+    description:
+      "Deep-seated lounge chair upholstered in neutral textured linen.",
+  },
+];
 
 const business: Business = {
   slug: "kan-decor",
@@ -262,6 +296,7 @@ const business: Business = {
     showContact: true,
     showMap: true,
   },
+  products: kanDecorProducts,
 };
 
 export default business;

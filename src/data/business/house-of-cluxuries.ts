@@ -1,4 +1,40 @@
-import type { Business } from "@/types/business";
+import type { Business, ProductItem } from "@/types/business";
+
+export const houseOfCluxuriesProducts: ProductItem[] = [
+  {
+    id: "the-emerald-edit-box",
+    name: "The Emerald Edit Gift Box",
+    category: "Signature Collection",
+    price: 185000,
+    formattedPrice: "₦185,000",
+    src: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1200&auto=format&fit=crop",
+    inStock: true,
+    description:
+      "House fragrance, hand-poured candle, fine chocolates, and silk wrap in a lacquered emerald case.",
+  },
+  {
+    id: "house-scents-trio-set",
+    name: "House Scents Trio Discovery Set",
+    category: "Fragrance",
+    price: 95000,
+    formattedPrice: "₦95,000",
+    src: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=1000&auto=format&fit=crop",
+    inStock: true,
+    description:
+      "Layered extraction perfumes presented on custom marble display pedestals.",
+  },
+  {
+    id: "luxe-emerald-hamper",
+    name: "Luxe Emerald Hamper",
+    category: "Hampers",
+    price: 240000,
+    formattedPrice: "₦240,000",
+    src: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1200&auto=format&fit=crop",
+    inStock: true,
+    description:
+      "Curated assortment of fine chocolates, silk wraps, and custom aromatherapy candles.",
+  },
+];
 
 const business: Business = {
   slug: "house-of-cluxuries",
@@ -270,6 +306,7 @@ const business: Business = {
     showContact: true,
     showMap: true,
   },
+  products: houseOfCluxuriesProducts,
 };
 
 export default business;

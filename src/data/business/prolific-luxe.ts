@@ -1,4 +1,48 @@
-import type { Business } from "@/types/business";
+import type { Business, ProductItem } from "@/types/business";
+
+export const prolificLuxeProducts: ProductItem[] = [
+  {
+    id: "top-time-watch",
+    name: "Top Time Luxury Wristwatch",
+    category: "Timepieces",
+    price: 170000,
+    formattedPrice: "₦170,000",
+    src: "https://instagram.fabb1-2.fna.fbcdn.net/v/t51.82787-15/730608349_18048574613613961_1330755546188635093_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzkyNzIzNTA5Njg5MjY1NTE5Mw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTI4OC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=lyWfLUs4YKIQ7kNvwFYjlmy&_nc_oc=AdqQKEQBnVSfwQLgO-Wed6FMDG1Frz0_ny5qKaM12H2W14nO0c-NZz359Hb1EB7kmvQ&_nc_zt=23&_nc_ht=instagram.fabb1-2.fna&_nc_gid=WbAA26wIkh3RdIwb6c0-fQ&_nc_ss=7ba8c&oh=00_AQGCXO82UwDIyvmk-fkdzDdOCRpAaaTy5n-5VFPUDMTWGg&oe=6A9213C3",
+    inStock: true,
+    description:
+      "Fully boxed with watch manual, fully studded bezel, and long-lasting battery.",
+  },
+  {
+    id: "citizen-timepiece",
+    name: "Citizen Timepiece",
+    category: "Timepieces",
+    price: 55000,
+    formattedPrice: "₦55,000",
+    src: "https://instagram.fabb1-1.fna.fbcdn.net/v/t51.82787-15/776718726_18056428844613961_7270407458311015547_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mzk6NjM3OTQ2NDUwNDk4NDc5MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=trup2muh6lIQ7kNvwF1ygoE&_nc_oc=AdrXBKwzsAkE_D0iIX3bicLxjakWNEg4AZ_6VObGxVhAuAB3vBte1EDm0sD8DP1G3nQ&_nc_zt=23&_nc_ht=instagram.fabb1-1.fna&_nc_gid=lG5rIK4lk0516NCsWyx_MQ&_nc_ss=7ba8c&oh=00_AQGTuiTdDIv-MYmNuEvu2YghxeG23DbkruKm8Bceiy4Nkw&oe=6A91F0C2",
+    inStock: true,
+    description: "Sleek luxury timepiece.",
+  },
+  {
+    id: "criss-cross-footwear",
+    name: "Criss Cross Footwear",
+    category: "Footwear",
+    price: 38000,
+    formattedPrice: "₦38,000",
+    src: "https://instagram.fabb1-1.fna.fbcdn.net/v/t51.82787-15/743157336_18051144752613961_2852816913131880963_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&ig_cache_key=Mzk3OTY2Mjc0Mzk1NDIzNDI1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwMC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=nha25kpQTjwQ7kNvwEqoxw3&_nc_oc=Adp2v-R5AtSOgbdYTv7x7s5N9uD4Aqa7PYMNWjwFmhCAtMm_NoTYT2zfuZ4dP2KHKfE&_nc_zt=23&_nc_ht=instagram.fabb1-1.fna&_nc_gid=H_6Aiam728dVzglphxkMkw&_nc_ss=7ba8c&oh=00_AQHA1G9s_x3X9-ju-dFMQ_jmi7c_exG2muJt4MxEvdHKVQ&oe=6A920322",
+    inStock: true,
+    description: "Custom built from scratch using premium leather.",
+  },
+  {
+    id: "pocket-knife-belt",
+    name: "Pocket Knife Belt",
+    category: "Accessories",
+    price: 35000,
+    formattedPrice: "₦35,000",
+    src: "https://instagram.fabb1-1.fna.fbcdn.net/v/t51.82787-15/742155341_18050898341613961_2074382729251623444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=101&ig_cache_key=Mzk3ODM5MDY1MzA2NjA1NTM4MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwNi5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=GSjVTTwVw8wQ7kNvwEfauaV&_nc_oc=AdrfQ9o1U1ymZGSSbKjDN2Q3y1nLXaP4nggPwfBF9uadeYs_eyjJnO3Js_0Uiq8KH5E&_nc_zt=23&_nc_ht=instagram.fabb1-1.fna&_nc_gid=yZJXTtQbeuC-NDo0HWjnWg&_nc_ss=7ba8c&oh=00_AQEKHWRH6AOfob4U2bZxUEIKJcIhU94AQFbmXRYef9x8sg&oe=6A9215E9",
+    inStock: true,
+    description: "Designer leather belt featuring custom hardware.",
+  },
+];
 
 const business: Business = {
   slug: "prolific-luxe",
@@ -9,10 +53,10 @@ const business: Business = {
   description:
     "Each piece holds a story. Make sure it's one worth telling with custom gold jewelry, luxury timepieces, and handcrafted footwear.",
   theme: {
-    primary: "#D4AF37", // Rich Gold
+    primary: "#D4AF37",
     secondary: "#1A1A1A",
-    accent: "#F3E5AB", // Soft Gold Accent
-    background: "#0A0A0A", // Deep Luxury Dark
+    accent: "#F3E5AB",
+    background: "#0A0A0A",
     surface: "#141414",
     text: "#F5F5F7",
     muted: "#98989A",
@@ -47,7 +91,7 @@ const business: Business = {
     pillars: [
       "Custom Footwear Made From Scratch",
       "Fully Studded Luxury Timepieces",
-      "Pocket Knife Belts & Designer Accessories",
+      "Designer Accessories",
       "Nationwide Insured Delivery",
     ],
   },
@@ -102,7 +146,7 @@ const business: Business = {
       id: "citizen-timepiece",
       title: "Citizen Timepiece",
       category: "Timepieces",
-      src: "https://instagram.fabb1-1.fna.fbcdn.net/v/t51.82787-15/776718726_18056428844613961_7270407458311015547_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mzk2NjM3OTQ2NDUwNDk4NDc5MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=trup2muh6lIQ7kNvwF1ygoE&_nc_oc=AdrXBKwzsAkE_D0iIX3bicLxjakWNEg4AZ_6VObGxVhAuAB3vBte1EDm0sD8DP1G3nQ&_nc_zt=23&_nc_ht=instagram.fabb1-1.fna&_nc_gid=lG5rIK4lk0516NCsWyx_MQ&_nc_ss=7ba8c&oh=00_AQGTuiTdDIv-MYmNuEvu2YghxeG23DbkruKm8Bceiy4Nkw&oe=6A91F0C2",
+      src: "https://instagram.fabb1-1.fna.fbcdn.net/v/t51.82787-15/776718726_18056428844613961_7270407458311015547_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=Mzk6NjM3OTQ2NDUwNDk4NDc5MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=trup2muh6lIQ7kNvwF1ygoE&_nc_oc=AdrXBKwzsAkE_D0iIX3bicLxjakWNEg4AZ_6VObGxVhAuAB3vBte1EDm0sD8DP1G3nQ&_nc_zt=23&_nc_ht=instagram.fabb1-1.fna&_nc_gid=lG5rIK4lk0516NCsWyx_MQ&_nc_ss=7ba8c&oh=00_AQGTuiTdDIv-MYmNuEvu2YghxeG23DbkruKm8Bceiy4Nkw&oe=6A91F0C2",
       alt: "Citizen Timepiece luxury watch",
       caption: "Price: ₦55,000 — Now available in store.",
       description: [
@@ -132,7 +176,7 @@ const business: Business = {
       id: "pocket-knife-belt",
       title: "Pocket Knife Belt",
       category: "Accessories",
-      src: "https://instagram.fabb1-1.fna.fbcdn.net/v/t51.82787-15/742155341_18050898341613961_2074382729251623444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=101&ig_cache_key=MzkzODM5MDY1MzA2NjA1NTM4MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwNi5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=GSjVTTwVw8wQ7kNvwEfauaV&_nc_oc=AdrfQ9o1U1ymZGSSbKjDN2Q3y1nLXaP4nggPwfBF9uadeYs_eyjJnO3Js_0Uiq8KH5E&_nc_zt=23&_nc_ht=instagram.fabb1-1.fna&_nc_gid=yZJXTtQbeuC-NDo0HWjnWg&_nc_ss=7ba8c&oh=00_AQEKHWRH6AOfob4U2bZxUEIKJcIhU94AQFbmXRYef9x8sg&oe=6A9215E9",
+      src: "https://instagram.fabb1-1.fna.fbcdn.net/v/t51.82787-15/742155341_18050898341613961_2074382729251623444_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=101&ig_cache_key=Mzk3ODM5MDY1MzA2NjA1NTM4MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIwNi5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=GSjVTTwVw8wQ7kNvwEfauaV&_nc_oc=AdrfQ9o1U1ymZGSSbKjDN2Q3y1nLXaP4nggPwfBF9uadeYs_eyjJnO3Js_0Uiq8KH5E&_nc_zt=23&_nc_ht=instagram.fabb1-1.fna&_nc_gid=yZJXTtQbeuC-NDo0HWjnWg&_nc_ss=7ba8c&oh=00_AQEKHWRH6AOfob4U2bZxUEIKJcIhU94AQFbmXRYef9x8sg&oe=6A9215E9",
       alt: "Pocket Knife leather designer belt",
       caption: "Price: ₦35,000 — Statement accessory available in store.",
       description: [
@@ -222,6 +266,7 @@ const business: Business = {
     showContact: true,
     showMap: false,
   },
+  products: prolificLuxeProducts,
 };
 
 export default business;

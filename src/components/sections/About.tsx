@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Award, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { Award, ArrowRight, ShoppingBag } from "lucide-react";
 import type { Business } from "@/types/business";
 
 interface AboutSectionProps {
@@ -9,8 +10,10 @@ interface AboutSectionProps {
 }
 
 export default function AboutSection({ business }: AboutSectionProps) {
-  const { theme, about } = business;
+  const { theme, about, products, slug } = business;
   const [activePillar, setActivePillar] = useState<number | null>(null);
+
+  const hasProducts = Array.isArray(products) && products.length > 0;
 
   return (
     <section
@@ -60,7 +63,7 @@ export default function AboutSection({ business }: AboutSectionProps) {
 
         {/* MAIN BODY GRID */}
         <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
-          {/* LEFT: TEXT PARAGRAPHS & SIGNATURE CARD */}
+          {/* LEFT: TEXT PARAGRAPHS & SIGNATURE / STORE CARD */}
           <div className="flex flex-col gap-6 lg:col-span-7">
             {about.paragraphs.map((para, index) => (
               <p
@@ -75,44 +78,90 @@ export default function AboutSection({ business }: AboutSectionProps) {
               </p>
             ))}
 
-            {/* CURATOR / PRINCIPAL SIGNATURE CARD */}
-            {about.signature && (
-              <div
-                className="mt-4 flex items-center gap-4 rounded-2xl border p-4 sm:p-5 backdrop-blur-xl transition-all duration-300 shadow-sm"
-                style={{
-                  backgroundColor: `${theme.surface}80`,
-                  borderColor: theme.border,
-                }}
-              >
+            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
+              {/* CURATOR / PRINCIPAL SIGNATURE CARD */}
+              {about.signature && (
                 <div
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border shadow-inner"
+                  className="flex flex-1 items-center gap-4 rounded-2xl border p-4 sm:p-5 backdrop-blur-xl transition-all duration-300 shadow-sm"
                   style={{
-                    backgroundColor: `${theme.primary}15`,
-                    borderColor: `${theme.primary}30`,
-                    color: theme.primary,
+                    backgroundColor: `${theme.surface}80`,
+                    borderColor: theme.border,
                   }}
                 >
-                  <Award size={20} />
-                </div>
-                <div>
-                  <p
-                    className="text-xs uppercase tracking-wider font-semibold"
-                    style={{ color: theme.muted }}
-                  >
-                    Leadership & Vision
-                  </p>
-                  <p
-                    className="text-base font-medium tracking-tight mt-0.5"
+                  <div
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border shadow-inner"
                     style={{
-                      fontFamily: theme.displayFont,
-                      color: theme.text,
+                      backgroundColor: `${theme.primary}15`,
+                      borderColor: `${theme.primary}30`,
+                      color: theme.primary,
                     }}
                   >
-                    {about.signature}
-                  </p>
+                    <Award size={20} />
+                  </div>
+                  <div>
+                    <p
+                      className="text-xs uppercase tracking-wider font-semibold"
+                      style={{ color: theme.muted }}
+                    >
+                      Leadership & Vision
+                    </p>
+                    <p
+                      className="text-base font-medium tracking-tight mt-0.5"
+                      style={{
+                        fontFamily: theme.displayFont,
+                        color: theme.text,
+                      }}
+                    >
+                      {about.signature}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+
+              {/* STORE CATALOG BRIDGE CARD */}
+              {hasProducts && (
+                <Link
+                  href={`/${slug}/store`}
+                  className="group flex flex-1 items-center justify-between gap-4 rounded-2xl border p-4 sm:p-5 backdrop-blur-xl transition-all duration-300 hover:border-opacity-100 shadow-sm active:scale-[0.98]"
+                  style={{
+                    backgroundColor: `${theme.surface}80`,
+                    borderColor: `${theme.primary}40`,
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-transform group-hover:scale-105"
+                      style={{
+                        backgroundColor: `${theme.primary}15`,
+                        borderColor: `${theme.primary}30`,
+                        color: theme.primary,
+                      }}
+                    >
+                      <ShoppingBag size={18} />
+                    </div>
+                    <div>
+                      <p
+                        className="text-xs uppercase tracking-wider font-semibold"
+                        style={{ color: theme.muted }}
+                      >
+                        Curated Collection
+                      </p>
+                      <p
+                        className="text-sm font-medium tracking-tight mt-0.5"
+                        style={{ color: theme.text }}
+                      >
+                        {products.length} Products Available
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform group-hover:translate-x-1"
+                    style={{ color: theme.primary }}
+                  />
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* RIGHT: CLASSIC EDITORIAL PILLARS / STANDARDS GRID */}
@@ -127,7 +176,8 @@ export default function AboutSection({ business }: AboutSectionProps) {
               <span
                 className="text-[10px] font-semibold uppercase tracking-widest"
                 style={{ color: theme.accent || theme.primary }}
-              >Standard of Excellence
+              >
+                Standard of Excellence
               </span>
             </div>
 
@@ -148,7 +198,6 @@ export default function AboutSection({ business }: AboutSectionProps) {
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      {/* Classic Index Number */}
                       <span
                         className="text-xs font-mono font-bold tracking-widest"
                         style={{

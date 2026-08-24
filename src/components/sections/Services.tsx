@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Gift,
   Briefcase,
@@ -7,6 +8,7 @@ import {
   Crown,
   Sparkles,
   ArrowUpRight,
+  ShoppingBag,
 } from "lucide-react";
 import type { Business } from "@/types/business";
 
@@ -14,16 +16,19 @@ interface ServicesSectionProps {
   business: Business;
 }
 
-// Dynamic icon mapping with dynamic fallback
+// Dynamic icon mapping with fallback
 const iconMap: Record<string, React.ElementType> = {
   Gift,
   Briefcase,
   Droplets,
   Crown,
+  Sparkles,
 };
 
 export default function ServicesSection({ business }: ServicesSectionProps) {
-  const { theme, services } = business;
+  const { theme, services, products, slug, contact, whatsappMessages } = business;
+
+  const hasProducts = Array.isArray(products) && products.length > 0;
 
   return (
     <section
@@ -61,27 +66,44 @@ export default function ServicesSection({ business }: ServicesSectionProps) {
         </div>
 
         {/* HEADLINE & SUBTITLE */}
-        <div className="mt-6 max-w-3xl">
-          <h2
-            className="text-3xl font-light tracking-tight sm:text-5xl lg:text-6xl leading-[1.15]"
-            style={{
-              fontFamily: theme.displayFont,
-              color: theme.text,
-            }}
-          >
-            A complete service, <br />
-            <span className="italic opacity-90">start to finish.</span>
-          </h2>
+        <div className="mt-6 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-3xl">
+            <h2
+              className="text-3xl font-light tracking-tight sm:text-5xl lg:text-6xl leading-[1.15]"
+              style={{
+                fontFamily: theme.displayFont,
+                color: theme.text,
+              }}
+            >
+              A complete service, <br />
+              <span className="italic opacity-90">start to finish.</span>
+            </h2>
 
-          <p
-            className="mt-4 text-base font-normal leading-relaxed sm:text-lg"
-            style={{
-              color: theme.muted,
-              fontFamily: theme.bodyFont,
-            }}
-          >
-            Everything {business.name} offers, curated and executed under one accountable roof.
-          </p>
+            <p
+              className="mt-4 text-base font-normal leading-relaxed sm:text-lg"
+              style={{
+                color: theme.muted,
+                fontFamily: theme.bodyFont,
+              }}
+            >
+              Everything {business.name} offers, curated and executed under one accountable roof.
+            </p>
+          </div>
+
+          {/* QUICK CATALOG EXPLORER ACTION */}
+          {hasProducts && (
+            <Link
+              href={`/${slug}/store`}
+              className="inline-flex h-11 shrink-0 items-center gap-2 rounded-full border px-6 text-xs font-medium transition-all duration-300 hover:bg-black/5 active:scale-[0.98]"
+              style={{
+                borderColor: theme.border,
+                color: theme.text,
+              }}
+            >
+              <ShoppingBag size={14} style={{ color: theme.primary }} />
+              <span>Browse Catalog ({products.length})</span>
+            </Link>
+          )}
         </div>
 
         {/* CLASSIC MONOCHROME SINGLE-PIXEL GRID */}
@@ -89,13 +111,23 @@ export default function ServicesSection({ business }: ServicesSectionProps) {
           className="mt-14 overflow-hidden rounded-3xl border shadow-sm transition-colors duration-300"
           style={{
             borderColor: theme.border,
-            backgroundColor: theme.border, // Acts as the 1px grid separator
+            backgroundColor: theme.border, // Acts as 1px grid gap
           }}
         >
           <div className="grid gap-px md:grid-cols-2">
             {services.map((service, index) => {
-              const IconComponent = iconMap[service.icon] || Gift;
+              const IconComponent = iconMap[service.icon] || Sparkles;
               const formattedNum = String(index + 1).padStart(2, "0");
+
+              // Route directly into relevant store category if store exists, otherwise WhatsApp consultation
+              const serviceSlug = service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+              const targetUrl = hasProducts
+                ? `/${slug}/store?category=${encodeURIComponent(service.title)}`
+                : `https://wa.me/${contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(
+                    `${whatsappMessages.consultation} I'd like to inquire about ${service.title}.`
+                  )}`;
+
+              const isExternal = !hasProducts;
 
               return (
                 <article
@@ -105,11 +137,11 @@ export default function ServicesSection({ business }: ServicesSectionProps) {
                     backgroundColor: theme.background,
                   }}
                 >
-                  {/* TOP ROW: ICON & INDEX */}
                   <div>
+                    {/* TOP ROW: ICON & INDEX */}
                     <div className="flex items-center justify-between">
                       <span
-                        className="flex h-12 w-12 items-center justify-center rounded-2xl border transition-all duration-300 group-hover:border-transparent"
+                        className="flex h-12 w-12 items-center justify-center rounded-2xl border transition-all duration-300 group-hover:border-transparent group-hover:scale-105"
                         style={{
                           borderColor: theme.border,
                           backgroundColor: `${theme.surface}80`,
@@ -150,24 +182,45 @@ export default function ServicesSection({ business }: ServicesSectionProps) {
                     </p>
                   </div>
 
-                  {/* BOTTOM HOVER ACCENT FOOTER */}
-                  <div className="mt-8 flex items-center justify-between pt-6 border-t" style={{ borderColor: `${theme.border}40` }}>
+                  {/* BOTTOM ACTION FOOTER */}
+                  <div
+                    className="mt-8 flex items-center justify-between pt-6 border-t"
+                    style={{ borderColor: `${theme.border}40` }}
+                  >
                     <span
-                      className="text-[11px] font-semibold uppercase tracking-widest transition-colors duration-300 group-hover:text-current"
+                      className="text-[11px] font-semibold uppercase tracking-widest transition-colors duration-300"
                       style={{ color: theme.muted }}
                     >
-                      Full Scope Care
+                      {hasProducts ? "Explore Related Items" : "Inquire via WhatsApp"}
                     </span>
 
-                    <div
-                      className="flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 group-hover:translate-x-1 group-hover:bg-current"
-                      style={{
-                        borderColor: theme.border,
-                        color: theme.text,
-                      }}
-                    >
-                      <ArrowUpRight size={15} />
-                    </div>
+                    {isExternal ? (
+                      <a
+                        href={targetUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 group-hover:translate-x-1 group-hover:border-transparent"
+                        style={{
+                          borderColor: theme.border,
+                          backgroundColor: `${theme.surface}80`,
+                          color: theme.text,
+                        }}
+                      >
+                        <ArrowUpRight size={15} />
+                      </a>
+                    ) : (
+                      <Link
+                        href={targetUrl}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 group-hover:translate-x-1 group-hover:border-transparent"
+                        style={{
+                          borderColor: theme.border,
+                          backgroundColor: `${theme.surface}80`,
+                          color: theme.text,
+                        }}
+                      >
+                        <ArrowUpRight size={15} />
+                      </Link>
+                    )}
                   </div>
                 </article>
               );
