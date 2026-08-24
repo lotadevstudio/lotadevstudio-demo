@@ -111,6 +111,22 @@ export interface SectionToggles {
   showMap: boolean;
 }
 
+export interface ProductItem {
+  id: string;
+  name: string;
+  category: string;
+  price: number; // Raw integer in NGN (e.g., 170000)
+  formattedPrice: string; // "₦170,000"
+  src: string;
+  inStock: boolean;
+  description: string;
+}
+
+export interface CartItem {
+  product: ProductItem;
+  quantity: number;
+}
+
 export interface Business {
   slug: string;
   name: string;
@@ -145,6 +161,7 @@ export interface Business {
   contact: ContactInfo;
   whatsappMessages: WhatsAppTemplates;
   sections: SectionToggles;
+  products?: ProductItem[]; // Store feature products list
 }
 
 export type BusinessRegistry = Record<string, Business>;

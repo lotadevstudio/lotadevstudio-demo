@@ -17,7 +17,6 @@ export default function Header({ business }: HeaderProps) {
     whatsappMessages?.consultation || "Hello!"
   )}`;
 
-  // Prevent background scroll when mobile menu is active
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -32,13 +31,11 @@ export default function Header({ business }: HeaderProps) {
   const handleNavClick = (target: string) => {
     setMobileMenuOpen(false);
 
-    // Defer scroll slightly to allow body overflow reset
     setTimeout(() => {
       const element = document.getElementById(target);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       } else {
-        // Fallback standard hash jump if ID isn't found directly
         window.location.hash = target;
       }
     }, 100);
@@ -57,11 +54,11 @@ export default function Header({ business }: HeaderProps) {
           {/* BRAND LOGO */}
           <Link
             href={`/${business.slug}`}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 max-w-[70%] sm:max-w-none"
             onClick={() => setMobileMenuOpen(false)}
           >
             <span
-              className="text-lg font-semibold tracking-tight"
+              className="text-base sm:text-lg font-semibold tracking-tight truncate"
               style={{
                 fontFamily: theme.displayFont,
                 color: theme.text,
@@ -98,13 +95,13 @@ export default function Header({ business }: HeaderProps) {
             </ul>
           </nav>
 
-          {/* DESKTOP/MOBILE ACTIONS */}
+          {/* ACTIONS: CTA ON DESKTOP, TOGGLE ON MOBILE */}
           <div className="flex items-center gap-3">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium text-white transition-all duration-200 active:scale-95 shadow-sm"
+              className="hidden md:inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium text-white transition-all duration-200 active:scale-95 shadow-sm"
               style={{ backgroundColor: theme.primary }}
             >
               <MessageCircle size={14} className="shrink-0" />
@@ -129,16 +126,16 @@ export default function Header({ business }: HeaderProps) {
         </div>
       </header>
 
-      {/* FULL-SCREEN MOBILE OVERLAY WITH DEDICATED HEADER & CLOSE BUTTON */}
+      {/* FULL-SCREEN MOBILE OVERLAY */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 z-50 flex flex-col justify-between px-6 pt-4 pb-8 backdrop-blur-2xl md:hidden overflow-y-auto animate-in fade-in duration-200"
           style={{ backgroundColor: `${theme.background}FD` }}
         >
-          {/* OVERLAY TOP BAR WITH LOGO & EXPLICIT CLOSE BUTTON */}
+          {/* OVERLAY TOP BAR */}
           <div className="flex h-12 items-center justify-between border-b pb-3" style={{ borderColor: theme.border }}>
             <span
-              className="text-lg font-semibold tracking-tight"
+              className="text-lg font-semibold tracking-tight truncate max-w-[75%]"
               style={{ fontFamily: theme.displayFont, color: theme.text }}
             >
               {business.name}
