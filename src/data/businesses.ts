@@ -2,12 +2,14 @@ import type { Business } from "@/types/business";
 import kanDecor from "./business/kan-decor";
 import houseOfCluxuries from "./business/house-of-cluxuries";
 import prolificLuxe from "./business/prolific-luxe";
+import chrisjoel from "./business/chris-joel";
 
 // 1. Add new business objects here
 export const allBusinesses: Business[] = [
   kanDecor,
   houseOfCluxuries,
   prolificLuxe,
+  chrisjoel,
 ];
 
 // Map for instant O(1) lookup by slug

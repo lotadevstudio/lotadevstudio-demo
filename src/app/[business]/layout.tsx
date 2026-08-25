@@ -22,14 +22,13 @@ export default async function BusinessLayout({
   const { theme } = business;
 
   return (
-    <CartProvider>
+    <CartProvider key={slug} businessSlug={slug}>
       <div
         className="min-h-screen antialiased selection:bg-black/10"
         style={{
           backgroundColor: theme.background,
           color: theme.text,
           fontFamily: theme.bodyFont,
-          // Custom CSS variables for child routes
           "--primary": theme.primary,
           "--secondary": theme.secondary,
           "--accent": theme.accent,

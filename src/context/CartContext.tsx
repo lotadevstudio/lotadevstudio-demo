@@ -14,16 +14,21 @@ interface CartContextType {
   totalPrice: number;
 }
 
-const STORAGE_KEY = "prolific_luxe_cart";
+interface CartProviderProps {
+  children: React.ReactNode;
+  businessSlug: string;
+}
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
-  // Lazy state initialization prevents calling setState in useEffect
+export function CartProvider({ children, businessSlug }: CartProviderProps) {
+  const storageKey = `cart_${businessSlug}`;
+
+  // State initializes lazily on mount per unique key
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window === "undefined") return [];
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(storageKey);
       return saved ? JSON.parse(saved) : [];
     } catch (e) {
       console.error("Failed to parse cart storage", e);
@@ -33,14 +38,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Sync cart state to localStorage whenever cart changes
+  // Sync state to localStorage only on cart updates
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+      localStorage.setItem(storageKey, JSON.stringify(cart));
     } catch (e) {
       console.error("Failed to sync cart storage", e);
     }
-  }, [cart]);
+  }, [cart, storageKey]);
 
   const addToCart = (product: ProductItem) => {
     setCart((prev) => {
